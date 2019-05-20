@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/demo.dir/main.cpp.o  -o demo  -L/home/louis/drivers/2-Linux/OpenNI-Linux-x64-2.3.0.43/Redist -Wl,-rpath,/home/louis/drivers/2-Linux/OpenNI-Linux-x64-2.3.0.43/Redist -llibOpenNI2 
