@@ -123,6 +123,33 @@ demo/fast:
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/build
 .PHONY : demo/fast
 
+Depth_Gmm.o: Depth_Gmm.cpp.o
+
+.PHONY : Depth_Gmm.o
+
+# target to build an object file
+Depth_Gmm.cpp.o:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/Depth_Gmm.cpp.o
+.PHONY : Depth_Gmm.cpp.o
+
+Depth_Gmm.i: Depth_Gmm.cpp.i
+
+.PHONY : Depth_Gmm.i
+
+# target to preprocess a source file
+Depth_Gmm.cpp.i:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/Depth_Gmm.cpp.i
+.PHONY : Depth_Gmm.cpp.i
+
+Depth_Gmm.s: Depth_Gmm.cpp.s
+
+.PHONY : Depth_Gmm.s
+
+# target to generate assembly for a file
+Depth_Gmm.cpp.s:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/Depth_Gmm.cpp.s
+.PHONY : Depth_Gmm.cpp.s
+
 Viewer.o: Viewer.cpp.o
 
 .PHONY : Viewer.o
@@ -186,6 +213,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... demo"
 	@echo "... edit_cache"
+	@echo "... Depth_Gmm.o"
+	@echo "... Depth_Gmm.i"
+	@echo "... Depth_Gmm.s"
 	@echo "... Viewer.o"
 	@echo "... Viewer.i"
 	@echo "... Viewer.s"

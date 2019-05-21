@@ -62,6 +62,8 @@ private:
 	SampleViewer(const SampleViewer&);
 	SampleViewer& operator=(SampleViewer&);
 
+    void getBgModel(int width, const openni::DepthPixel *pixel);
+
 	static SampleViewer* ms_self;
 	static void glutIdle();
 	static void glutDisplay();

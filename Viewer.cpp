@@ -35,6 +35,7 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+#include "Depth_Gmm.h"
 
 #define GL_WIN_SIZE_X	1280
 #define GL_WIN_SIZE_Y	1024
@@ -46,7 +47,7 @@
 #define MIN_CHUNKS_SIZE(data_size, chunk_size)	(MIN_NUM_CHUNKS(data_size, chunk_size) * (chunk_size))
 
 SampleViewer* SampleViewer::ms_self = NULL;
-
+static cv::Rect box(0, 0, 208, 128);
 const int cropOriginX=232;
 const int cropOriginY=100;
 const int cropWidth=208;
@@ -354,6 +355,9 @@ void SampleViewer::onKey(unsigned char key, int /*x*/, int /*y*/)
         case 'r':
             messageCode=0;
             break;
+        case 'o':
+            getBgModel(m_depthFrame.getWidth(), (const openni::DepthPixel *) m_depthFrame.getData());
+            break;
 	    case 'g':
             const openni::DepthPixel* pDepthRow = (const openni::DepthPixel*)m_depthFrame.getData();
             for (int y = cropOriginY; y < cropOriginY+cropHeight; ++y) {
@@ -396,6 +400,28 @@ void SampleViewer::initOpenGLHooks()
 	glutKeyboardFunc(glutKeyboard);
 	glutDisplayFunc(glutDisplay);
 	glutIdleFunc(glutIdle);
+}
+
+void SampleViewer::getBgModel(int width, const openni::DepthPixel *pixel) {
+    Depth_Gmm mog;
+    Mat fg(Size(cropWidth, cropHeight), CV_8UC1);
+    Mat d_im(Size(cropWidth, cropHeight), CV_32FC1);
+    for (int i = 0; i < cropHeight; ++i) {
+        float *ptr = d_im.ptr<float>(i);
+        for (int j = 0; j < cropWidth; ++j) {
+            ptr[j] = pixel[j + width * i];
+        }
+    }
+    std::cout << d_im;
+    mog.saveBgmodel(box, d_im, fg, 0.8, 364, "bgmodel-0-00.txt");
+    //imshow("fg",fg);
+    /*for(int i=0;i<fg.rows;++i){
+        for(int j=0;j<fg.cols;++j){
+            std::cout<<fg.at(i,j)<<" ";
+        }
+    }*/
+    std::cout << fg;
+
 }
 
 double SampleViewer::getVolume(int cropOriginX,int cropOriginY,int cropWidth,int cropHeight,int width,double avgDepth,const openni::VideoStream& videoStream, const openni::DepthPixel* pixel) {
