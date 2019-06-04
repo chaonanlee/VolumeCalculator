@@ -22,6 +22,7 @@
 #define VIEWER_H
 
 #include <OpenNI.h>
+#include "opencv2/imgproc.hpp"
 
 #define MAX_DEPTH 10000
 
@@ -62,18 +63,26 @@ private:
 	SampleViewer(const SampleViewer&);
 	SampleViewer& operator=(SampleViewer&);
 
+    //void smoothImage(const openni::DepthPixel* pixel);
+    int getMaxDepth(const openni::DepthPixel *pixel);//new
+    void getsubDepths(const openni::DepthPixel *pixel);//new
+
 	static SampleViewer* ms_self;
 	static void glutIdle();
 	static void glutDisplay();
 	static void glutKeyboard(unsigned char key, int x, int y);
-	double getVolume(int cropOriginX,int cropOriginY,int cropWidth,int cropHeight,int width,double avgDepth,const openni::VideoStream& videoStream, const openni::DepthPixel* pixel);
+
+    double getVolume(const openni::DepthPixel *pixel);  //new
+    void display(const openni::DepthPixel *pixel);//new
 
 	float			m_pDepthHist[MAX_DEPTH];
 	char			m_strSampleName[ONI_MAX_STR];
 	unsigned int		m_nTexMapX;
 	unsigned int		m_nTexMapY;
 	DisplayModes		m_eViewState;
-	openni::RGB888Pixel*	m_pTexMap;
+    openni::RGB888Pixel *m_pTexMap;//new
+    openni::DepthPixel *bgDepths;//new
+    openni::DepthPixel *subDepths;//new
 	int			m_width;
 	int			m_height;
 };

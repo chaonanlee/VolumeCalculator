@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(demo)
 
-find_package(PCL 1.7 REQUIRED)
+find_package(PCL 1.8 REQUIRED)
 set(CMAKE_CXX_STANDARD 14)
 
 set(OpenCV_DIR /usr/local/opencv4/lib/cmake/opencv4)
