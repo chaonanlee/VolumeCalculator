@@ -33,15 +33,13 @@ OniSampleUtilities.h
 /home/louis/CLionProjects/demoV2/OniSampleUtilities.h
 iostream
 -
-vector
--
-math.h
--
-opencv2/highgui.hpp
--
 
 /home/louis/CLionProjects/demoV2/Viewer.h
 OpenNI.h
+-
+vector
+-
+math.h
 -
 opencv2/imgproc.hpp
 /home/louis/CLionProjects/demoV2/opencv2/imgproc.hpp

@@ -33,9 +33,6 @@
 
 #include "OniSampleUtilities.h"
 #include <iostream>
-#include <vector>
-#include <math.h>
-#include <opencv2/highgui.hpp>
 
 using namespace std;
 
@@ -49,17 +46,10 @@ using namespace std;
 #define MIN_CHUNKS_SIZE(data_size, chunk_size)	(MIN_NUM_CHUNKS(data_size, chunk_size) * (chunk_size))
 
 SampleViewer* SampleViewer::ms_self = NULL;
-/***
- * new
- */
-const int cropOriginX=232;
-const int cropOriginY=100;
-const int cropWidth=208;
-const int cropHeight=128;
-const int ERROR=3;
+
+const int ERROR = 4;
 int messageCode=0;
 bool flag= false;
-double avgDepth=0;
 
 
 void SampleViewer::glutIdle()
@@ -165,9 +155,6 @@ openni::Status SampleViewer::run()	//Does not return
 	return openni::STATUS_OK;
 }
 
-/***
- * look
- */
 void SampleViewer::display()
 {
     int changedIndex;
@@ -229,7 +216,7 @@ void SampleViewer::display()
 
         switch (messageCode){
             case 1:
-                std::cout << "depth " << pDepthRow[250 + 112 * m_width] << std::endl;
+                std::cout << "depth " << pDepthRow[232 + 100 * m_width] << std::endl;
                 break;
             case 2:
                 getVolume(pDepthRow);
@@ -247,19 +234,6 @@ void SampleViewer::display()
                     pTex->g = nHistValue;
                     pTex->b = 0;
                 }
-
-                if(((y == cropOriginY) || (y == cropOriginY + cropHeight)) && (x > cropOriginX && x < cropOriginX + cropWidth)){
-                    pTex->r = 255;
-                    pTex->g = 0;
-                    pTex->b = 0;
-                }
-
-                if(((x == cropOriginX || x == cropOriginX + cropWidth)) && (y > cropOriginY && y < cropOriginY + cropHeight)){
-                    pTex->r = 255;
-                    pTex->g = 0;
-                    pTex->b = 0;
-                }
-
 
             }
 
@@ -340,7 +314,7 @@ void SampleViewer::onKey(unsigned char key, int /*x*/, int /*y*/)
             if(flag){
                 messageCode=1;
             } else{
-                memcpy(bgDepths, m_depthFrame.getData(), m_width * m_height);
+                memcpy(bgDepths, m_depthFrame.getData(), m_width * m_height * sizeof(openni::DepthPixel));
                 messageCode=0;
             }
             break;
@@ -357,26 +331,7 @@ void SampleViewer::onKey(unsigned char key, int /*x*/, int /*y*/)
             messageCode=0;
             getsubDepths((const openni::DepthPixel *) m_depthFrame.getData());
             display(subDepths);
-            /*for(int i=100;i<130;++i){
-                float cropOriginWX=0.0,cropOriginWY=0.0,cropOriginWZ=0.0;
-                openni::CoordinateConverter::convertDepthToWorld(m_depthStream,i,240,960,&cropOriginWX,&cropOriginWY,&cropOriginWZ);
-                std::cout<<"cropOriginWX:"<<cropOriginWX<<" cropOriginWY:"<<cropOriginWY<<" "<<std::endl;
-            }*/
-
-            /*getsubDepths((const openni::DepthPixel*)m_depthFrame.getData());
-            for (int y = 0; y < m_height; ++y) {
-                for (int x = 0; x < m_width; ++x) {
-                    if(subDepths[x+y*m_width]!=0){
-                        std::cout<<subDepths[x+y*m_width]<<" ";
-                    } else{
-                        std::cout<<" ";
-                    }
-
-
-                }
-                std::cout<<std::endl;
-            }
-            break;*/
+            break;
 
 
     }
@@ -416,6 +371,7 @@ void SampleViewer::initOpenGLHooks()
     }
     cv::bilateralFilter(src,dst,5,30,100);
 }*/
+
 /*void convertDepthPixelToMat(const openni::DepthPixel* pixel,cv::Mat& src){
     for (int y = 0; y < src.rows; ++y) {
         float * data = src.ptr<float>(y);
@@ -427,7 +383,7 @@ void SampleViewer::initOpenGLHooks()
 
 void SampleViewer::display(const openni::DepthPixel *pixel) {
     for (int y = 0; y < m_height; ++y) {
-        for (int x = 0; x < m_width; ++x) {
+        for (int x = 232; x < 440; ++x) {
             if (pixel[x + y * m_width] != 0) {
                 std::cout << pixel[x + y * m_width] << " ";
             } else {
@@ -440,25 +396,13 @@ void SampleViewer::display(const openni::DepthPixel *pixel) {
     }
 }
 
-int SampleViewer::getMaxDepth(const openni::DepthPixel *pixel) {
-    int temp = pixel[0];
-    int pos = 0;
-    for (int i = 1; i < m_width * m_height; ++i) {
-        if (pixel[i] > temp) {
-            temp = pixel[i];
-            pos = i;
-        }
-    }
-    return pos;
-}
-
 void SampleViewer::getsubDepths(const openni::DepthPixel *pixel) {
     for (int y = 0; y < m_height; ++y) {
         for (int x = 0; x < m_width; ++x) {
             int actual = pixel[x + y * m_width];
             int bgDepth = bgDepths[x + y * m_width];
+            //int sub = round((bgDepth - actual)/10);
             int sub = bgDepth - actual;
-            /*subDepths[x+y*m_width]=sub;*/
             if (actual != 0 && bgDepth != 0 && sub > ERROR) {
                 subDepths[x + y * m_width] = sub;
             } else {
@@ -473,41 +417,26 @@ double SampleViewer::getVolume(const openni::DepthPixel *pixel) {
     double sum = 0.0, pixelArea = 0.0;
     //smoothImage(pixel);
     getsubDepths(pixel);
-    int maxDepthPos = getMaxDepth(subDepths);
-    if (maxDepthPos == 0) {
-        std::cout << "volume= " << 0 << std::endl;
-        return 0;
-    }
-    float cropOriginWX = 0.0, cropOriginWY = 0.0, cropOriginWZ = 0.0;
-    openni::CoordinateConverter::convertDepthToWorld(m_depthStream, 0, 0, bgDepths[maxDepthPos], &cropOriginWX,
-                                                     &cropOriginWY, &cropOriginWZ);
 
-    float cropOriginWX1 = 0.0, cropOriginWY1 = 0.0;
-    openni::CoordinateConverter::convertDepthToWorld(m_depthStream, m_width, m_height, bgDepths[maxDepthPos],
-                                                     &cropOriginWX1, &cropOriginWY1, &cropOriginWZ);
-
-    float maxAvgWidth = (cropOriginWX1 - cropOriginWX) / m_width;
-    float maxAvgHeight = (cropOriginWY - cropOriginWY1) / m_height;
-
-    openni::CoordinateConverter::convertDepthToWorld(m_depthStream, 0, 0, pixel[maxDepthPos], &cropOriginWX,
-                                                     &cropOriginWY, &cropOriginWZ);
-
-    openni::CoordinateConverter::convertDepthToWorld(m_depthStream, m_width, m_height, pixel[maxDepthPos],
-                                                     &cropOriginWX1, &cropOriginWY1, &cropOriginWZ);
-
-    float minAvgWidth = (cropOriginWX1 - cropOriginWX) / m_width;
-    float minAvgHeight = (cropOriginWY - cropOriginWY1) / m_height;
-
-    float avgWidth = (maxAvgWidth + minAvgWidth) / 2;
-    float avgHeight = (maxAvgHeight + minAvgHeight) / 2;
-    pixelArea = avgWidth * avgHeight / 100;
     for (int y = 0; y < m_height; ++y) {
         for (int x = 0; x < m_width; ++x) {
-            int subdepth = subDepths[x + y * m_width];
-            sum += subdepth * pixelArea;
+            if (subDepths[x + y * m_width] != 0) {
+                float cropOriginWX = 0.0, cropOriginWY = 0.0, cropOriginWZ = 0.0;
+                openni::CoordinateConverter::convertDepthToWorld(m_depthStream, 0, 0, pixel[x + y * m_width],
+                                                                 &cropOriginWX,
+                                                                 &cropOriginWY, &cropOriginWZ);
+                float cropOriginWX1 = 0.0, cropOriginWY1 = 0.0;
+                openni::CoordinateConverter::convertDepthToWorld(m_depthStream, m_width, m_height,
+                                                                 pixel[x + y * m_width],
+                                                                 &cropOriginWX1, &cropOriginWY1, &cropOriginWZ);
+
+                float maxAvgWidth = (cropOriginWX1 - cropOriginWX) / m_width;
+                pixelArea = maxAvgWidth * maxAvgWidth;
+                sum += pixelArea * subDepths[x + y * m_width];
+            }
         }
     }
 
-    std::cout << "volume= " << sum << std::endl;
+    std::cout << "volume= " << sum / 1000 << std::endl;
 
 }

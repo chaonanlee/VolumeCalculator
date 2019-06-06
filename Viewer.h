@@ -22,7 +22,10 @@
 #define VIEWER_H
 
 #include <OpenNI.h>
-#include "opencv2/imgproc.hpp"
+#include <vector>
+#include <math.h>
+/*#include <opencv2/highgui.hpp>
+#include "opencv2/imgproc.hpp"*/
 
 #define MAX_DEPTH 10000
 
@@ -41,6 +44,9 @@ public:
 
 	virtual openni::Status init(int argc, char **argv);
 	virtual openni::Status run();	//Does not return
+    double getVolume(const openni::DepthPixel *pixel);
+
+    void display(const openni::DepthPixel *pixel);
 
 protected:
 	virtual void display();
@@ -64,25 +70,21 @@ private:
 	SampleViewer& operator=(SampleViewer&);
 
     //void smoothImage(const openni::DepthPixel* pixel);
-    int getMaxDepth(const openni::DepthPixel *pixel);//new
-    void getsubDepths(const openni::DepthPixel *pixel);//new
+    void getsubDepths(const openni::DepthPixel *pixel);
 
 	static SampleViewer* ms_self;
 	static void glutIdle();
 	static void glutDisplay();
 	static void glutKeyboard(unsigned char key, int x, int y);
 
-    double getVolume(const openni::DepthPixel *pixel);  //new
-    void display(const openni::DepthPixel *pixel);//new
-
 	float			m_pDepthHist[MAX_DEPTH];
 	char			m_strSampleName[ONI_MAX_STR];
 	unsigned int		m_nTexMapX;
 	unsigned int		m_nTexMapY;
 	DisplayModes		m_eViewState;
-    openni::RGB888Pixel *m_pTexMap;//new
-    openni::DepthPixel *bgDepths;//new
-    openni::DepthPixel *subDepths;//new
+    openni::RGB888Pixel *m_pTexMap;
+    openni::DepthPixel *bgDepths;
+    openni::DepthPixel *subDepths;
 	int			m_width;
 	int			m_height;
 };
