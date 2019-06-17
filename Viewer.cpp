@@ -47,7 +47,7 @@ using namespace std;
 
 SampleViewer* SampleViewer::ms_self = NULL;
 
-const int ERROR = 4;
+const int ERROR = 3;
 int messageCode=0;
 bool flag= false;
 
@@ -81,8 +81,6 @@ SampleViewer::~SampleViewer()
 	if (m_streams != NULL)
 	{
 		delete []m_streams;
-		delete[] bgDepths;
-        delete[] subDepths;
 	}
 }
 
@@ -142,8 +140,11 @@ openni::Status SampleViewer::init(int argc, char **argv)
 	m_nTexMapY = MIN_CHUNKS_SIZE(m_height, TEXTURE_SIZE);
 	m_pTexMap = new openni::RGB888Pixel[m_nTexMapX * m_nTexMapY];
 
-    bgDepths = new openni::DepthPixel[m_width * m_height];
-    subDepths = new openni::DepthPixel[m_width * m_height];
+    bgsubtractor = cv::createBackgroundSubtractorMOG2();
+    frame = cv::Mat(cv::Size(m_width, m_height), CV_32FC1);
+    foreground = cv::Mat(cv::Size(m_width, m_height), CV_8SC1);
+    background = cv::Mat(cv::Size(m_width, m_height), CV_32FC1);
+    realFg = cv::Mat(cv::Size(m_width, m_height), CV_32FC1);
 
 	return initOpenGL(argc, argv);
 
@@ -172,6 +173,19 @@ void SampleViewer::display()
         default:
             printf("Error in wait\n");
     }
+
+    /*if (m_depthFrame.isValid()) {
+        const openni::DepthPixel* pDepthRow = (const openni::DepthPixel*)m_depthFrame.getData();
+        switch (messageCode){
+            case 1:
+                convertDepthPixelToMat(pDepthRow,frame);
+                bgsubtractor->apply(frame,foreground,0.01);
+                break;
+            case 2:
+                getVolume(pDepthRow);
+                break;
+        }
+    }*/
 
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -216,7 +230,8 @@ void SampleViewer::display()
 
         switch (messageCode){
             case 1:
-                std::cout << "depth " << pDepthRow[232 + 100 * m_width] << std::endl;
+                convertDepthPixelToMat(pDepthRow, frame);
+                bgsubtractor->apply(frame, foreground, 0.01);
                 break;
             case 2:
                 getVolume(pDepthRow);
@@ -314,25 +329,29 @@ void SampleViewer::onKey(unsigned char key, int /*x*/, int /*y*/)
             if(flag){
                 messageCode=1;
             } else{
-                memcpy(bgDepths, m_depthFrame.getData(), m_width * m_height * sizeof(openni::DepthPixel));
+                bgsubtractor->getBackgroundImage(background);
                 messageCode=0;
             }
             break;
         case 'p':
             messageCode=2;
             break;
-        case 'u':
-            display(bgDepths);
-            break;
         case 't':
-            display((const openni::DepthPixel *) m_depthFrame.getData());
-            break;
-        case 'r':
-            messageCode=0;
-            getsubDepths((const openni::DepthPixel *) m_depthFrame.getData());
-            display(subDepths);
-            break;
+            const openni::DepthPixel *pDepthRow = (const openni::DepthPixel *) m_depthFrame.getData();
+            getsubDepths(pDepthRow);
+            /*if (m_depthFrame.isValid()) {
+                const openni::DepthPixel* pDepthRow = (const openni::DepthPixel*)m_depthFrame.getData();
+                convertDepthPixelToMat(pDepthRow,frame);
+                bgsubtractor->getBackgroundImage(background);
+                realFg=background-frame;
+                cv::imshow("frame",frame);
+                cv::imshow("bg",background);
+                cv::imshow("realfg",realFg);
+                cv::waitKey(20);
 
+                cout<<endl<<realFg<<endl;
+            }*/
+            break;
 
     }
 
@@ -362,65 +381,37 @@ void SampleViewer::initOpenGLHooks()
 	glutIdleFunc(glutIdle);
 }
 
-/*void SampleViewer::smoothImage(const openni::DepthPixel* pixel){
-    for (int y = 0; y < 480; ++y) {
-        float * data = src.ptr<float>(y);
-        for (int x = 0; x < 640; ++x) {
-            data[x]=pixel[x+y*m_depthFrame.getWidth()];
-        }
-    }
-    cv::bilateralFilter(src,dst,5,30,100);
-}*/
-
-/*void convertDepthPixelToMat(const openni::DepthPixel* pixel,cv::Mat& src){
-    for (int y = 0; y < src.rows; ++y) {
-        float * data = src.ptr<float>(y);
-        for (int x = 0; x < src.cols; ++x) {
-            data[x]=pixel[x+y*src.cols];
-        }
-    }
-}*/
-
-void SampleViewer::display(const openni::DepthPixel *pixel) {
-    for (int y = 0; y < m_height; ++y) {
-        for (int x = 232; x < 440; ++x) {
-            if (pixel[x + y * m_width] != 0) {
-                std::cout << pixel[x + y * m_width] << " ";
+void SampleViewer::getsubDepths(const openni::DepthPixel *pixel) {
+    for (int y = 0; y < background.rows; ++y) {
+        const float *bgdata = background.ptr<float>(y);
+        auto subdata = realFg.ptr<float>(y);
+        for (int x = 0; x < background.cols; ++x) {
+            float temp = bgdata[x] - float(pixel[x + y * background.cols]) / 10;
+            if (temp > ERROR) {
+                subdata[x] = temp;
             } else {
-                std::cout << " ";
+                subdata[x] = 0;
             }
-
-
         }
-        std::cout << std::endl;
     }
 }
 
-void SampleViewer::getsubDepths(const openni::DepthPixel *pixel) {
-    for (int y = 0; y < m_height; ++y) {
-        for (int x = 0; x < m_width; ++x) {
-            int actual = pixel[x + y * m_width];
-            int bgDepth = bgDepths[x + y * m_width];
-            //int sub = round((bgDepth - actual)/10);
-            int sub = bgDepth - actual;
-            if (actual != 0 && bgDepth != 0 && sub > ERROR) {
-                subDepths[x + y * m_width] = sub;
-            } else {
-                subDepths[x + y * m_width] = 0;
-            }
-
+void SampleViewer::convertDepthPixelToMat(const openni::DepthPixel *pixel, cv::Mat &src) {
+    for (int y = 0; y < src.rows; ++y) {
+        auto data = src.ptr<float>(y);
+        for (int x = 0; x < src.cols; ++x) {
+            data[x] = float(pixel[x + y * src.cols]) / 10;
         }
     }
 }
 
 double SampleViewer::getVolume(const openni::DepthPixel *pixel) {
-    double sum = 0.0, pixelArea = 0.0;
-    //smoothImage(pixel);
     getsubDepths(pixel);
-
-    for (int y = 0; y < m_height; ++y) {
-        for (int x = 0; x < m_width; ++x) {
-            if (subDepths[x + y * m_width] != 0) {
+    double sum = 0.0, pixelArea = 0.0;
+    for (int y = 0; y < realFg.rows; ++y) {
+        const float *data = realFg.ptr<float>(y);
+        for (int x = 0; x < realFg.cols; ++x) {
+            if (data[x] != 0) {
                 float cropOriginWX = 0.0, cropOriginWY = 0.0, cropOriginWZ = 0.0;
                 openni::CoordinateConverter::convertDepthToWorld(m_depthStream, 0, 0, pixel[x + y * m_width],
                                                                  &cropOriginWX,
@@ -432,11 +423,10 @@ double SampleViewer::getVolume(const openni::DepthPixel *pixel) {
 
                 float maxAvgWidth = (cropOriginWX1 - cropOriginWX) / m_width;
                 pixelArea = maxAvgWidth * maxAvgWidth;
-                sum += pixelArea * subDepths[x + y * m_width];
+                sum += pixelArea * data[x];
             }
         }
     }
 
-    std::cout << "volume= " << sum / 1000 << std::endl;
-
+    std::cout << "volume= " << sum / 100 << std::endl;
 }

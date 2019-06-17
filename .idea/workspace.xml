@@ -14,7 +14,9 @@
     <list default="true" id="75e9a8d3-f7e4-416d-8c69-d6ba35c30f7d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeFiles/demo.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/demo.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeFiles/demo.dir/Viewer.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/demo.dir/Viewer.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/demo.dir/Viewer.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/demo.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/demo.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/demo.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/demo.dir/depend.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeFiles/demo.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/demo.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Viewer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Viewer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Viewer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Viewer.h" afterDir="false" />
@@ -37,11 +39,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Viewer.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1034">
-              <caret line="47" column="16" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="16" />
+            <state relative-caret-position="379">
+              <caret line="83" column="30" lean-forward="true" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
               <folding>
                 <element signature="e#1615#1634#0" expanded="true" />
-                <element signature="e#1692#1777#1" />
               </folding>
             </state>
           </provider>
@@ -50,13 +51,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Viewer.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="110" column="9" lean-forward="true" selection-start-line="110" selection-start-column="9" selection-end-line="110" selection-end-column="9" />
+            <state relative-caret-position="-738">
+              <caret line="238" column="9" selection-start-line="238" selection-start-column="9" selection-end-line="238" selection-end-column="9" />
               <folding>
                 <element signature="e#0#1579#0" />
                 <element signature="e#1758#1780#0" expanded="true" />
                 <element signature="e#1824#1855#0" expanded="true" />
+                <element signature="e#2377#2448#0" />
+                <element signature="e#2449#2559#0" />
+                <element signature="e#2561#2905#0" />
                 <element signature="e#2906#3080#0" />
+                <element signature="e#4900#5001#0" />
+                <element signature="e#11115#11513#0" />
+                <element signature="e#11514#11643#0" />
               </folding>
             </state>
           </provider>
@@ -212,21 +219,23 @@
       <workItem from="1560132693002" duration="3259000" />
       <workItem from="1560217280870" duration="3966000" />
       <workItem from="1560302979405" duration="898000" />
+      <workItem from="1560735398254" duration="19133000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="216290000" />
+    <option name="totallyTimeSpent" value="239904000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="934" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4895238" visible="true" weight="0.13613725" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4895238" visible="true" weight="0.13779746" />
       <window_info id="Structure" order="1" sideWeight="0.5104762" side_tool="true" weight="0.16712783" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4997233" weight="0.4347826" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32919255" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4997233" visible="true" weight="0.38881987" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4986165" weight="0.45714286" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -235,7 +244,7 @@
       <window_info anchor="bottom" id="Messages" order="8" weight="0.32546583" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49926144" weight="0.3279503" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013835" side_tool="true" weight="0.45714286" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="11" visible="true" weight="0.32919255" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32919255" />
       <window_info anchor="bottom" id="CMake" order="12" weight="0.32713756" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -280,6 +289,14 @@
               <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
                 <collection />
               </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
             </State>
           </value>
         </entry>
@@ -300,6 +317,14 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Finished." />
+    <MESSAGE value="V4 completed." />
+    <option name="LAST_COMMIT_MESSAGE" value="V4 completed." />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -309,18 +334,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Viewer.cpp</url>
-          <line>437</line>
-          <option name="timeStamp" value="59" />
+          <line>327</line>
+          <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Viewer.cpp</url>
-          <line>418</line>
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Viewer.cpp</url>
-          <line>420</line>
-          <option name="timeStamp" value="61" />
+          <line>408</line>
+          <option name="timeStamp" value="70" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -339,6 +359,11 @@
       </expression>
     </expressions>
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>pixel[x + y * m_width]</expression-string>
+        <language-id>ObjectiveC</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>pixel[x+y*m_width]</expression-string>
         <language-id>ObjectiveC</language-id>
@@ -376,11 +401,6 @@
       </expression>
       <expression>
         <expression-string>openni::CoordinateConverter::convertDepthToWorld(m_depthStream,0,200,bgDepths[maxDepthPos],&amp;cropOriginWX,&amp;cropOriginWY,&amp;cropOriginWZ)</expression-string>
-        <language-id>ObjectiveC</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>openni::CoordinateConverter::convertDepthToWorld(m_depthStream,0,480,bgDepths[maxDepthPos],&amp;cropOriginWX,&amp;cropOriginWY,&amp;cropOriginWZ)</expression-string>
         <language-id>ObjectiveC</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -551,13 +571,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/drivers/2-Linux/OpenNI-Linux-x64-2.3.0.43/Include/OpenNI.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="2724" selection-start-line="2724" selection-end-line="2724" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/include/GL/freeglut_std.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -592,26 +605,59 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/drivers/2-Linux/OpenNI-Linux-x64-2.3.0.43/Include/OpenNI.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="480" selection-start-line="480" selection-end-line="480" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/opencv4/include/opencv4/opencv2/highgui.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="853">
+          <caret line="388" column="18" selection-start-line="388" selection-start-column="18" selection-end-line="388" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/opencv4/include/opencv4/opencv2/core/mat.inl.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9042">
+          <caret line="472" column="5" selection-start-line="472" selection-start-column="5" selection-end-line="472" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/opencv4/include/opencv4/opencv2/video/background_segm.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="207" column="25" selection-start-line="207" selection-start-column="25" selection-end-line="207" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Viewer.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1034">
-          <caret line="47" column="16" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="16" />
+        <state relative-caret-position="379">
+          <caret line="83" column="30" lean-forward="true" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
           <folding>
             <element signature="e#1615#1634#0" expanded="true" />
-            <element signature="e#1692#1777#1" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Viewer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="110" column="9" lean-forward="true" selection-start-line="110" selection-start-column="9" selection-end-line="110" selection-end-column="9" />
+        <state relative-caret-position="-738">
+          <caret line="238" column="9" selection-start-line="238" selection-start-column="9" selection-end-line="238" selection-end-column="9" />
           <folding>
             <element signature="e#0#1579#0" />
             <element signature="e#1758#1780#0" expanded="true" />
             <element signature="e#1824#1855#0" expanded="true" />
+            <element signature="e#2377#2448#0" />
+            <element signature="e#2449#2559#0" />
+            <element signature="e#2561#2905#0" />
             <element signature="e#2906#3080#0" />
+            <element signature="e#4900#5001#0" />
+            <element signature="e#11115#11513#0" />
+            <element signature="e#11514#11643#0" />
           </folding>
         </state>
       </provider>

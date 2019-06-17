@@ -24,6 +24,7 @@ CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/cor
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/base.hpp
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/bufferpool.hpp
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/check.hpp
+CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/core.hpp
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/cuda.hpp
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/cuda.inl.hpp
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/cuda_types.hpp
@@ -90,8 +91,10 @@ CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/fla
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/flann/saving.h
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/flann/timer.h
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/highgui.hpp
+CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/highgui/highgui.hpp
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/imgcodecs.hpp
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/imgproc.hpp
+CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/imgproc/imgproc.hpp
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/ml.hpp
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/ml/ml.inl.hpp
 CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/objdetect.hpp
@@ -138,6 +141,7 @@ CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/base.hpp
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/bufferpool.hpp
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/check.hpp
+CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/core.hpp
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/cuda.hpp
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/cuda.inl.hpp
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/core/cuda_types.hpp
@@ -204,8 +208,10 @@ CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/flann
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/flann/saving.h
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/flann/timer.h
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/highgui.hpp
+CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/highgui/highgui.hpp
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/imgcodecs.hpp
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/imgproc.hpp
+CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/imgproc/imgproc.hpp
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/ml.hpp
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/ml/ml.inl.hpp
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/objdetect.hpp

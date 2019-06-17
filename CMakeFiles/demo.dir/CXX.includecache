@@ -41,8 +41,16 @@ vector
 -
 math.h
 -
-opencv2/imgproc.hpp
-/home/louis/CLionProjects/demoV2/opencv2/imgproc.hpp
+opencv2/core/core.hpp
+-
+opencv2/imgproc/imgproc.hpp
+-
+opencv2/highgui/highgui.hpp
+-
+opencv2/opencv.hpp
+/home/louis/CLionProjects/demoV2/opencv2/opencv.hpp
+opencv2/video/background_segm.hpp
+/home/louis/CLionProjects/demoV2/opencv2/video/background_segm.hpp
 
 /home/louis/drivers/2-Linux/OpenNI-Linux-x64-2.3.0.43/Include/Android-Arm/OniPlatformAndroid-Arm.h
 ../Linux-x86/OniPlatformLinux-x86.h
@@ -217,6 +225,10 @@ opencv2/core/check.hpp
 /usr/local/opencv4/include/opencv4/opencv2/core/check.hpp
 opencv2/core/base.hpp
 -
+
+/usr/local/opencv4/include/opencv4/opencv2/core/core.hpp
+opencv2/core.hpp
+/usr/local/opencv4/include/opencv4/opencv2/core/opencv2/core.hpp
 
 /usr/local/opencv4/include/opencv4/opencv2/core/cuda.hpp
 opencv2/core.hpp
@@ -954,6 +966,10 @@ opencv2/imgcodecs.hpp
 opencv2/videoio.hpp
 /usr/local/opencv4/include/opencv4/opencv2/opencv2/videoio.hpp
 
+/usr/local/opencv4/include/opencv4/opencv2/highgui/highgui.hpp
+opencv2/highgui.hpp
+/usr/local/opencv4/include/opencv4/opencv2/highgui/opencv2/highgui.hpp
+
 /usr/local/opencv4/include/opencv4/opencv2/imgcodecs.hpp
 opencv2/core.hpp
 /usr/local/opencv4/include/opencv4/opencv2/opencv2/core.hpp
@@ -961,6 +977,10 @@ opencv2/core.hpp
 /usr/local/opencv4/include/opencv4/opencv2/imgproc.hpp
 opencv2/core.hpp
 /usr/local/opencv4/include/opencv4/opencv2/opencv2/core.hpp
+
+/usr/local/opencv4/include/opencv4/opencv2/imgproc/imgproc.hpp
+opencv2/imgproc.hpp
+/usr/local/opencv4/include/opencv4/opencv2/imgproc/opencv2/imgproc.hpp
 
 /usr/local/opencv4/include/opencv4/opencv2/ml.hpp
 opencv2/core.hpp

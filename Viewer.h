@@ -24,8 +24,11 @@
 #include <OpenNI.h>
 #include <vector>
 #include <math.h>
-/*#include <opencv2/highgui.hpp>
-#include "opencv2/imgproc.hpp"*/
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include "opencv2/opencv.hpp"
+#include "opencv2/video/background_segm.hpp"
 
 #define MAX_DEPTH 10000
 
@@ -45,8 +48,6 @@ public:
 	virtual openni::Status init(int argc, char **argv);
 	virtual openni::Status run();	//Does not return
     double getVolume(const openni::DepthPixel *pixel);
-
-    void display(const openni::DepthPixel *pixel);
 
 protected:
 	virtual void display();
@@ -69,8 +70,9 @@ private:
 	SampleViewer(const SampleViewer&);
 	SampleViewer& operator=(SampleViewer&);
 
-    //void smoothImage(const openni::DepthPixel* pixel);
     void getsubDepths(const openni::DepthPixel *pixel);
+
+    void convertDepthPixelToMat(const openni::DepthPixel *pixel, cv::Mat &src);
 
 	static SampleViewer* ms_self;
 	static void glutIdle();
@@ -83,10 +85,10 @@ private:
 	unsigned int		m_nTexMapY;
 	DisplayModes		m_eViewState;
     openni::RGB888Pixel *m_pTexMap;
-    openni::DepthPixel *bgDepths;
-    openni::DepthPixel *subDepths;
 	int			m_width;
 	int			m_height;
+    cv::Ptr<cv::BackgroundSubtractorMOG2> bgsubtractor;
+    cv::Mat frame, foreground, background, realFg;
 };
 
 
