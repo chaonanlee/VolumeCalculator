@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/louis/CLionProjects/demoV2/Viewer.cpp" "/home/louis/CLionProjects/demoV2/CMakeFiles/demo.dir/Viewer.cpp.o"
   "/home/louis/CLionProjects/demoV2/main.cpp" "/home/louis/CLionProjects/demoV2/CMakeFiles/demo.dir/main.cpp.o"
+  "/home/louis/CLionProjects/demoV2/usbController.cpp" "/home/louis/CLionProjects/demoV2/CMakeFiles/demo.dir/usbController.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

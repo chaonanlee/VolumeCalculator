@@ -29,6 +29,8 @@
 #include <opencv2/highgui/highgui.hpp>
 #include "opencv2/opencv.hpp"
 #include "opencv2/video/background_segm.hpp"
+#include "usbController.h"
+#include <fstream>
 
 #define MAX_DEPTH 10000
 
@@ -48,6 +50,8 @@ public:
 	virtual openni::Status init(int argc, char **argv);
 	virtual openni::Status run();	//Does not return
     double getVolume(const openni::DepthPixel *pixel);
+
+    void getAvgVolume();
 
 protected:
 	virtual void display();
@@ -70,14 +74,20 @@ private:
 	SampleViewer(const SampleViewer&);
 	SampleViewer& operator=(SampleViewer&);
 
+    openni::Status initPort();
+
     void getsubDepths(const openni::DepthPixel *pixel);
 
     void convertDepthPixelToMat(const openni::DepthPixel *pixel, cv::Mat &src);
+
+    void initBgModel();
 
 	static SampleViewer* ms_self;
 	static void glutIdle();
 	static void glutDisplay();
 	static void glutKeyboard(unsigned char key, int x, int y);
+
+    static void glutTimer(int i);
 
 	float			m_pDepthHist[MAX_DEPTH];
 	char			m_strSampleName[ONI_MAX_STR];
@@ -89,6 +99,8 @@ private:
 	int			m_height;
     cv::Ptr<cv::BackgroundSubtractorMOG2> bgsubtractor;
     cv::Mat frame, foreground, background, realFg;
+    usbRelayController usbController;
+    std::vector<double> volumes;
 };
 
 

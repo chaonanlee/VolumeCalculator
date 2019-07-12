@@ -24,7 +24,7 @@ find_package(GLUT REQUIRED)
 include_directories(${GLUT_INCLUDE_DIR})
 
 
-add_executable(demo main.cpp Viewer.cpp Viewer.h OniSampleUtilities.h)
+add_executable(demo main.cpp Viewer.cpp Viewer.h OniSampleUtilities.h usbController.cpp usbController.h)
 target_link_libraries(demo libOpenNI2.so)
 target_link_libraries (demo ${PCL_LIBRARIES})
 target_link_libraries(demo ${OpenCV_LIBS})

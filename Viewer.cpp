@@ -33,6 +33,7 @@
 
 #include "OniSampleUtilities.h"
 #include <iostream>
+#include <numeric>
 
 using namespace std;
 
@@ -47,10 +48,17 @@ using namespace std;
 
 SampleViewer* SampleViewer::ms_self = NULL;
 
-const int ERROR = 3;
+const int TIMER_ID = 10086;
+
+const char *RELAY_DEV_ID = "/dev/ttyUSB0";
+
+const char *BG_MODEL_URI = "bgModel/bgModel.xml";
+
+const char *BG_MODEL_TAG = "bgModel";
+
+const int ERROR = 5;
 int messageCode=0;
 bool flag= false;
-
 
 void SampleViewer::glutIdle()
 {
@@ -63,6 +71,12 @@ void SampleViewer::glutDisplay()
 void SampleViewer::glutKeyboard(unsigned char key, int x, int y)
 {
 	SampleViewer::ms_self->onKey(key, x, y);
+}
+
+void SampleViewer::glutTimer(int i) {
+    SampleViewer::ms_self->getAvgVolume();
+    glutTimerFunc(1000, glutTimer, TIMER_ID);
+
 }
 
 SampleViewer::SampleViewer(const char* strSampleName, openni::Device& device, openni::VideoStream& depth, openni::VideoStream& color) :
@@ -146,6 +160,7 @@ openni::Status SampleViewer::init(int argc, char **argv)
     background = cv::Mat(cv::Size(m_width, m_height), CV_32FC1);
     realFg = cv::Mat(cv::Size(m_width, m_height), CV_32FC1);
 
+    initBgModel();
 	return initOpenGL(argc, argv);
 
 }
@@ -173,19 +188,6 @@ void SampleViewer::display()
         default:
             printf("Error in wait\n");
     }
-
-    /*if (m_depthFrame.isValid()) {
-        const openni::DepthPixel* pDepthRow = (const openni::DepthPixel*)m_depthFrame.getData();
-        switch (messageCode){
-            case 1:
-                convertDepthPixelToMat(pDepthRow,frame);
-                bgsubtractor->apply(frame,foreground,0.01);
-                break;
-            case 2:
-                getVolume(pDepthRow);
-                break;
-        }
-    }*/
 
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -228,16 +230,6 @@ void SampleViewer::display()
         openni::RGB888Pixel* pTexRow = m_pTexMap + m_depthFrame.getCropOriginY() * m_nTexMapX;
         int rowSize = m_depthFrame.getStrideInBytes() / sizeof(openni::DepthPixel);
 
-        switch (messageCode){
-            case 1:
-                convertDepthPixelToMat(pDepthRow, frame);
-                bgsubtractor->apply(frame, foreground, 0.01);
-                break;
-            case 2:
-                getVolume(pDepthRow);
-                break;
-        }
-
         for (int y = 0; y < m_height; ++y) {
             const openni::DepthPixel* pDepth = pDepthRow;
             openni::RGB888Pixel* pTex = pTexRow + m_depthFrame.getCropOriginX();
@@ -256,6 +248,29 @@ void SampleViewer::display()
             pTexRow += m_nTexMapX;
         }
 
+    }
+
+
+    if (m_depthFrame.isValid()) {
+        const openni::DepthPixel *pDepthRow = (const openni::DepthPixel *) m_depthFrame.getData();
+
+        switch (messageCode) {
+            case 1:
+                convertDepthPixelToMat(pDepthRow, frame);
+                bgsubtractor->apply(frame, foreground, 0.01);
+                break;
+            case 2:
+                volumes.push_back(getVolume(pDepthRow));
+
+                /*if(getVolume(pDepthRow)>10000){
+                    usbController.closePort();
+                } else{
+                    usbController.openPort();
+                }*/
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -330,31 +345,37 @@ void SampleViewer::onKey(unsigned char key, int /*x*/, int /*y*/)
                 messageCode=1;
             } else{
                 bgsubtractor->getBackgroundImage(background);
+                cv::FileStorage fs(BG_MODEL_URI, cv::FileStorage::WRITE);
+                fs << BG_MODEL_TAG << background;
+                fs.release();
                 messageCode=0;
             }
             break;
         case 'p':
             messageCode=2;
             break;
-        case 't':
-            const openni::DepthPixel *pDepthRow = (const openni::DepthPixel *) m_depthFrame.getData();
-            getsubDepths(pDepthRow);
-            /*if (m_depthFrame.isValid()) {
-                const openni::DepthPixel* pDepthRow = (const openni::DepthPixel*)m_depthFrame.getData();
-                convertDepthPixelToMat(pDepthRow,frame);
-                bgsubtractor->getBackgroundImage(background);
-                realFg=background-frame;
-                cv::imshow("frame",frame);
-                cv::imshow("bg",background);
-                cv::imshow("realfg",realFg);
-                cv::waitKey(20);
-
-                cout<<endl<<realFg<<endl;
-            }*/
-            break;
 
     }
 
+}
+
+openni::Status SampleViewer::initPort() {
+    if (!usbController.initPort(RELAY_DEV_ID)) {
+        cout << "init port faild!" << endl;
+        return openni::STATUS_ERROR;
+    }
+    return openni::STATUS_OK;
+}
+
+void SampleViewer::initBgModel() {
+    cv::FileStorage fread(BG_MODEL_URI, cv::FileStorage::READ);
+    if (!fread.isOpened()) {
+        cout << "Failed to open bgModel file at: " << BG_MODEL_URI << endl;
+    } else {
+        fread[BG_MODEL_TAG] >> background;
+        messageCode = 2;
+    }
+    fread.release();
 }
 
 openni::Status SampleViewer::initOpenGL(int argc, char **argv)
@@ -371,7 +392,8 @@ openni::Status SampleViewer::initOpenGL(int argc, char **argv)
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
 
-	return openni::STATUS_OK;
+    return openni::Status::STATUS_OK;
+    //return initPort();
 
 }
 void SampleViewer::initOpenGLHooks()
@@ -379,6 +401,18 @@ void SampleViewer::initOpenGLHooks()
 	glutKeyboardFunc(glutKeyboard);
 	glutDisplayFunc(glutDisplay);
 	glutIdleFunc(glutIdle);
+    glutTimerFunc(1000, glutTimer, TIMER_ID);
+}
+
+void SampleViewer::getAvgVolume() {
+    if (!volumes.empty()) {
+        double sum = std::accumulate(std::begin(volumes), std::end(volumes), 0.0);
+        double mean = sum / volumes.size();
+        cout << "AvgVolume= " << mean << endl;
+        volumes.clear();
+    } else {
+        cout << "AvgVolume= 0" << endl;
+    }
 }
 
 void SampleViewer::getsubDepths(const openni::DepthPixel *pixel) {
@@ -427,6 +461,5 @@ double SampleViewer::getVolume(const openni::DepthPixel *pixel) {
             }
         }
     }
-
-    std::cout << "volume= " << sum / 100 << std::endl;
+    return sum / 100;
 }

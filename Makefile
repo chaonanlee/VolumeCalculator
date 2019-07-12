@@ -177,6 +177,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+usbController.o: usbController.cpp.o
+
+.PHONY : usbController.o
+
+# target to build an object file
+usbController.cpp.o:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/usbController.cpp.o
+.PHONY : usbController.cpp.o
+
+usbController.i: usbController.cpp.i
+
+.PHONY : usbController.i
+
+# target to preprocess a source file
+usbController.cpp.i:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/usbController.cpp.i
+.PHONY : usbController.cpp.i
+
+usbController.s: usbController.cpp.s
+
+.PHONY : usbController.s
+
+# target to generate assembly for a file
+usbController.cpp.s:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/usbController.cpp.s
+.PHONY : usbController.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -192,6 +219,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... usbController.o"
+	@echo "... usbController.i"
+	@echo "... usbController.s"
 .PHONY : help
 
 

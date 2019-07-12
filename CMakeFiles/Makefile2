@@ -71,7 +71,7 @@ CMAKE_BINARY_DIR = /home/louis/CLionProjects/demoV2
 CMakeFiles/demo.dir/all:
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/depend
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/louis/CLionProjects/demoV2/CMakeFiles --progress-num=1,2,3 "Built target demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/louis/CLionProjects/demoV2/CMakeFiles --progress-num=1,2,3,4 "Built target demo"
 .PHONY : CMakeFiles/demo.dir/all
 
 # Include target in all.
@@ -81,7 +81,7 @@ all: CMakeFiles/demo.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/demo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/louis/CLionProjects/demoV2/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/louis/CLionProjects/demoV2/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/demo.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/louis/CLionProjects/demoV2/CMakeFiles 0
 .PHONY : CMakeFiles/demo.dir/rule

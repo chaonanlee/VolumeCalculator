@@ -186,6 +186,12 @@
 		<Unit filename="/home/louis/CLionProjects/demoV2/main.cpp">
 			<Option target="demo"/>
 		</Unit>
+		<Unit filename="/home/louis/CLionProjects/demoV2/usbController.cpp">
+			<Option target="demo"/>
+		</Unit>
+		<Unit filename="/home/louis/CLionProjects/demoV2/usbController.h">
+			<Option target="demo"/>
+		</Unit>
 		<Unit filename="/home/louis/CLionProjects/demoV2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

@@ -4,6 +4,7 @@
 CMakeFiles/demo.dir/Viewer.cpp.o: OniSampleUtilities.h
 CMakeFiles/demo.dir/Viewer.cpp.o: Viewer.cpp
 CMakeFiles/demo.dir/Viewer.cpp.o: Viewer.h
+CMakeFiles/demo.dir/Viewer.cpp.o: usbController.h
 CMakeFiles/demo.dir/Viewer.cpp.o: /home/louis/drivers/2-Linux/OpenNI-Linux-x64-2.3.0.43/Include/Android-Arm/OniPlatformAndroid-Arm.h
 CMakeFiles/demo.dir/Viewer.cpp.o: /home/louis/drivers/2-Linux/OpenNI-Linux-x64-2.3.0.43/Include/Linux-Arm/OniPlatformLinux-Arm.h
 CMakeFiles/demo.dir/Viewer.cpp.o: /home/louis/drivers/2-Linux/OpenNI-Linux-x64-2.3.0.43/Include/Linux-x86/OniPlatformLinux-x86.h
@@ -121,6 +122,7 @@ CMakeFiles/demo.dir/Viewer.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/vid
 
 CMakeFiles/demo.dir/main.cpp.o: Viewer.h
 CMakeFiles/demo.dir/main.cpp.o: main.cpp
+CMakeFiles/demo.dir/main.cpp.o: usbController.h
 CMakeFiles/demo.dir/main.cpp.o: /home/louis/drivers/2-Linux/OpenNI-Linux-x64-2.3.0.43/Include/Android-Arm/OniPlatformAndroid-Arm.h
 CMakeFiles/demo.dir/main.cpp.o: /home/louis/drivers/2-Linux/OpenNI-Linux-x64-2.3.0.43/Include/Linux-Arm/OniPlatformLinux-Arm.h
 CMakeFiles/demo.dir/main.cpp.o: /home/louis/drivers/2-Linux/OpenNI-Linux-x64-2.3.0.43/Include/Linux-x86/OniPlatformLinux-x86.h
@@ -235,4 +237,7 @@ CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/video
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/video/background_segm.hpp
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/video/tracking.hpp
 CMakeFiles/demo.dir/main.cpp.o: /usr/local/opencv4/include/opencv4/opencv2/videoio.hpp
+
+CMakeFiles/demo.dir/usbController.cpp.o: usbController.cpp
+CMakeFiles/demo.dir/usbController.cpp.o: usbController.h
 
